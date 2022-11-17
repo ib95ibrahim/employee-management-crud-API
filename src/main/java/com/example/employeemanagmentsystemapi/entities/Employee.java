@@ -2,14 +2,18 @@ package com.example.employeemanagmentsystemapi.entities;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Employee {
     @Id
@@ -23,34 +27,8 @@ public class Employee {
     @Column(nullable = false)
     private String email;
 
-    public Employee(String fullName, String email) {
-        this.fullName = fullName;
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee")
+    private List<Job> jobs;
 
     @Override
     public boolean equals(Object o) {
